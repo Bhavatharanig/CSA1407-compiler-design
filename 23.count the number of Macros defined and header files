@@ -1,0 +1,46 @@
+Source Program: (sample.c)
+#define PI 3.14   
+#include<stdio.h> 
+#include<conio.h>
+ void main()
+{
+int a,b,c = 30;
+printf("hello");
+}
+
+lex program:
+%{
+int nmacro, nheader;
+%}
+%%
+^#define { nmacro++; }
+^#include { nheader++; }
+.|\n {  }
+%%
+int yywrap(void) {
+return 1;
+}
+int main(int argc, char *argv[]) {
+yyin = fopen(argv[1], "r");
+yylex();
+printf("Number of macros defined = %d\n", nmacro);
+printf("Number of header files included = %d\n", nheader);
+fclose(yyin);
+}
+
+OUTPUT:
+C:\Users\BHAVATHARANI\Desktop\lex programs>set path=F:\Program Files\GnuWin32\bin
+
+C:\Users\BHAVATHARANI\Desktop\lex programs>flex lex23.l.txt
+
+C:\Users\BHAVATHARANI\Desktop\lex programs>set path=E:\MinGW\bin
+
+C:\Users\BHAVATHARANI\Desktop\lex programs>gcc lex.yy.c
+
+C:\Users\BHAVATHARANI\Desktop\lex programs>a.exe
+lex23.c
+^Z
+Number of macros defined = 0
+Number of header files included = 0
+
+C:\Users\BHAVATHARANI\Desktop\lex programs>
